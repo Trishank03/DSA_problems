@@ -1,1 +1,35 @@
+Q: Binary Search 
+Link: https://leetcode.com/problems/binary-search/description/
+Question Explanation:
+Given a sorted array and need to find the x element from an array and if it doesn't exist return -1. This is standard alogorithm.
 
+Approach:
+Brute approach is searching the x linear from starting to ending which takes T.C: O(N) and S.C: O(1).
+This question is the standard algorithm which is used for efficient searching in sorted things and takes O(logN) time complexity.
+
+So, here main idea is take low = 0 and high = n-1. and take mid as average of low and high. 
+mid = low + (high-low)/2
+Now since the array is sorted, check if arr[mid] > x then it implies that x is on left of arr[mid] so we need to move high pointer to mid-1
+and same analysis for arr[mid] < x i.e., x will be on right side of ar[mid] so move the low pointer to mid+1
+
+*** if(arr[mid] > x) => high = mid-1 and if(arr[mid] < x) => low = mid+1 ***
+
+Code: 
+
+class Solution {
+    public int search(int[] nums, int target) {
+        int n = nums.length;
+        int high = n-1;
+        int low = 0;
+        int mid = low + (high-low)/2;
+        while(high >= low){
+            if(nums[mid]==target) return mid;
+            if(nums[mid] > target) high = mid-1;
+            else low = mid+1;
+            mid = low + (high-low)/2;
+        }
+    return -1;
+    }
+}
+
+T.C: O(logN) and S.C: O(1)
