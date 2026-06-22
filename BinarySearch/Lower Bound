@@ -1,0 +1,31 @@
+Question Explanation: There is a sorted array and you need to find the smallest index where arr[index] >= x.
+Quetsion Link: https://takeuforward.org/arrays/implement-lower-bound-bs-2
+
+Approach:
+Since, it is sorted go with binary search.
+if(arr[mid] >= x) then answer will be in left part or the current index might be the answer 
+so eliminate the right part and store the index in ans along with that make high = mid-1;
+if(arr[mid] < x) then answer exists in right part so eliinate the left part and make low = mid+1;
+
+T.C : O(logN) and S.C : O(1)
+
+
+class LowerBoundFinder {
+    // Function to find the lower bound index using binary search
+    public int lowerBound(int[] arr, int x) {
+        int low = 0;                  // Start index
+        int high = arr.length - 1;    // End index
+        int ans = arr.length;         // Default value if not found
+
+        while (low <= high) {
+            int mid = (low + high) / 2;  // Find mid index
+
+            if (arr[mid] >= x) {
+                ans = mid;            // Store possible answer
+                high = mid - 1;       // Move left
+            } else {
+                low = mid + 1;        // Move right
+            }
+        }
+        return ans;  // Return the lower bound index
+    }
