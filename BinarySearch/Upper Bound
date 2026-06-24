@@ -1,0 +1,28 @@
+Q: Upper Bound
+Question Link: https://takeuforward.org/arrays/implement-upper-bound
+Question Explanation: Given a sorted array and you need to figure out the smallest index such that it should be greater than x. i.e., arr[ind] > x
+
+Approach: Here in this problem, first visualize the scenario such that where will be the answer in the array, is it will be on left side or right size of the mid. 
+
+T.C: 0(logN) and S.C: O(1)
+
+Code:
+
+class UpperBoundFinder {
+    // Binary search to find upper bound
+    public int upperBound(int[] arr, int x) {
+        int low = 0, high = arr.length - 1;
+        int ans = arr.length;  // Default to length if not found
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] > x) {
+                ans = mid;        // Store current index as potential answer
+                high = mid - 1;   // Move left
+            } else {
+                low = mid + 1;    // Move right
+            }
+        }
+        return ans;  // Return final answer
+    }
