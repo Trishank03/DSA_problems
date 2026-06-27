@@ -1,0 +1,42 @@
+Q: Search in rotated sprted array-II
+Question Link: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+
+Question Explanation: Given an rotated sorted array in that you need search for value x. And in the given array, it may contains duplicate elements.
+
+Approach: The approach is same as the search in rotated sorted array, just like first you need to figure which part is sorted 
+and then you need to find whether the value will be present sorted part or not. But it fails for the cases:-
+
+when arr[low] = arr[mid] == arr[high]. Ex:[1,1,0,1,1,1,1]. So at this moment you need to trim the search space like low=low+1 and high=high-1 and then continue.
+
+T.C: Best case: O(logN) and worst case: O(N)
+S.C: O(1)
+
+Code:
+class Solution {
+    public boolean search(int[] arr, int x) {
+        int n = arr.length;
+        int low = 0;
+        int high = n-1;
+        int mid = low+(high-low)/2;
+        while(high >= low){
+            if(arr[mid]==x) return true;
+            if(arr[mid]==arr[low] && arr[mid]==arr[high]) {
+                low++;
+                high--;
+                continue;
+            }
+            if(arr[mid] >= arr[low]){
+                if(x >= arr[low] && x < arr[mid]) high = mid-1;
+                else low = mid+1;
+            }
+            else {
+                if(x > arr[mid] && x <= arr[high]){
+                    low = mid+1;
+                }
+                else high = mid-1;
+            }
+             mid = low+(high-low)/2;
+        }
+        return false;
+    }
+}
