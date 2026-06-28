@@ -1,0 +1,40 @@
+Q: Find Minimum in Rotated Sorted Array
+Question Link: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+Question Explanation: Given is a rotated sorted array with unique elements and here you need to find the minimum element in O(logN).
+
+Problem Intuition:
+A rotated sorted array always has one sorted half and one half containing the rotation (minimum element).
+The key observation is:
+
+If a half is already sorted, its first element is the smallest in that half.
+So, record that first element as a possible answer and continue searching only in the half where the actual minimum could still exist.
+
+T.C: O(logN) and S.C: O(1)
+
+Code:
+
+class Solution {
+    public int findMin(int[] arr) {
+        int n = arr.length;
+        int low = 0;
+        int high = n-1;
+        int mid = low + (high-low)/2;
+        int ans = Integer.MAX_VALUE;
+        while(high >= low){
+            if(arr[low] <= arr[mid] && arr[mid] <c arr[high]) {
+                ans = Math.min(ans,arr[low]);
+                break;
+            }
+            if(arr[mid] >= arr[low]) {
+                ans = Math.min(ans,arr[low]);
+                low = mid+1;
+                }
+        else {
+            ans = Math.min(ans,arr[mid]);
+            high = mid-1;
+            }
+            mid = low+(high-low)/2;
+        }
+        return ans;
+    }
+}
